@@ -22,7 +22,7 @@ export const rutaIdioma = (lang: Idioma) => ruta(lang === idiomaPorDefecto ? "" 
 // Textos fijos de la interfaz. El contenido editable vive en src/content/.
 export const ui = {
   es: {
-    nav: { esencia: "Nosotros", menu: "Menú", encontranos: "Encontranos", contacto: "Contacto" },
+    nav: { esencia: "Nosotros", menu: "Menú", encontranos: "Encuentranos", contacto: "Contacto" },
     navAria: "Secciones",
     idiomaAria: "Idioma",
     inicioAlt: "¡Disfrute! — inicio",
@@ -36,7 +36,7 @@ export const ui = {
     grupos: { salsas: "Salsas", secos: "Secos", frutas: "Frutas" },
     extra: "Toppings extra",
     cadaUno: "c/u",
-    encontranos: "Encontranos",
+    encontranos: "Encuentranos",
     horarios: "Horarios",
     cerrado: "Cerrado",
     comoLlegar: "Cómo llegar",
