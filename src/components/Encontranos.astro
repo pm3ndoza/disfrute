@@ -1,31 +1,36 @@
 ---
-import { getEntry } from "astro:content";
+import { ui, type Idioma } from "../i18n";
+import { contacto } from "../lib/contenido";
 import { ruta } from "../lib/url";
 
-const contacto = await getEntry("contacto", "contacto");
-if (!contacto) throw new Error("Falta src/content/contacto.md");
-const { direccion, ciudad, horarios } = contacto.data;
+interface Props {
+  lang: Idioma;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const { direccion, ciudad, horarios } = await contacto();
 const consulta = encodeURIComponent(`${direccion}, ${ciudad}`);
 ---
 
-<section id="encontranos" class="seccion seccion--crema seccion--deco">
-  <img class="deco deco--flores" src={ruta("img/deco/flores-crema.webp")} alt="" width="322" height="378" loading="lazy" />
+<section id="encontranos" class="seccion seccion--morado seccion--deco">
+  <img class="deco deco--palmera" src={ruta("img/deco/palmera.webp")} alt="" width="560" height="606" loading="lazy" />
   <div class="contenedor encontranos">
     <div class="revelar">
-      <h2>Encontranos</h2>
+      <h2>{t.encontranos}</h2>
       <address>{direccion}<br />{ciudad}</address>
-      <h3>Horarios</h3>
+      <h3>{t.horarios}</h3>
       <dl class="horarios">
-        {horarios.map((h) => (<><dt>{h.dias}</dt><dd>{h.horas}</dd></>))}
+        {horarios.map((h) => (<><dt>{h.dias[lang]}</dt><dd>{h.horas ?? t.cerrado}</dd></>))}
       </dl>
-      <a class="boton boton--morado" href={`https://www.google.com/maps/search/?api=1&query=${consulta}`} target="_blank" rel="noopener noreferrer">
-        Cómo llegar
+      <a class="boton boton--verde" href={`https://www.google.com/maps/search/?api=1&query=${consulta}`} target="_blank" rel="noopener noreferrer">
+        {t.comoLlegar}
       </a>
     </div>
     <iframe
       class="revelar"
-      title={`Mapa: ${direccion}`}
-      src={`https://www.google.com/maps?q=${consulta}&output=embed`}
+      title={`${t.mapa}: ${direccion}`}
+      src={`https://www.google.com/maps?q=${consulta}&hl=${lang}&output=embed`}
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
       sandbox="allow-scripts allow-same-origin allow-popups"></iframe>

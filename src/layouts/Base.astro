@@ -1,15 +1,19 @@
 ---
-import "@fontsource-variable/montserrat";
+import "@fontsource-variable/josefin-sans";
+import "@fontsource-variable/nunito";
 import "../styles/global.css";
+import { idiomaPorDefecto, idiomas, ogLocale, rutaIdioma, type Idioma } from "../i18n";
 import { ruta } from "../lib/url";
 
 interface Props {
+  lang: Idioma;
   titulo: string;
   descripcion: string;
   imagen: string;
 }
 
-const { titulo, descripcion, imagen } = Astro.props;
+const { lang, titulo, descripcion, imagen } = Astro.props;
+const absoluta = (path: string) => new URL(path, Astro.site).href;
 // Mientras sea vista previa (fotos sin permiso, textos provisorios) no se indexa en buscadores.
 const indexar = import.meta.env.PUBLIC_INDEXAR === "true";
 const imagenAbsoluta = new URL(ruta(imagen), Astro.site).href;
@@ -29,7 +33,7 @@ const csp = [
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,13 +42,17 @@ const csp = [
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>{titulo}</title>
     <meta name="description" content={descripcion} />
-    <meta name="theme-color" content="#341F57" />
+    <meta name="theme-color" content="#392054" />
     <link rel="icon" type="image/svg+xml" href={ruta("favicon.svg")} />
     <link rel="apple-touch-icon" href={ruta("apple-touch-icon.png")} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={absoluta(rutaIdioma(lang))} />
+    {idiomas.map((i) => <link rel="alternate" hreflang={i} href={absoluta(rutaIdioma(i))} />)}
+    <link rel="alternate" hreflang="x-default" href={absoluta(rutaIdioma(idiomaPorDefecto))} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_UY" />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    {idiomas.filter((i) => i !== lang).map((i) => <meta property="og:locale:alternate" content={ogLocale[i]} />)}
+    <meta property="og:url" content={absoluta(rutaIdioma(lang))} />
     <meta property="og:title" content={titulo} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:image" content={imagenAbsoluta} />

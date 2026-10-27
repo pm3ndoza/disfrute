@@ -1,0 +1,41 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "./Header.astro";
+import Hero from "./Hero.astro";
+import Historia from "./Historia.astro";
+import Productos from "./Productos.astro";
+import Encontranos from "./Encontranos.astro";
+import Contacto from "./Contacto.astro";
+import Onda from "./Onda.astro";
+import type { Idioma } from "../i18n";
+import { contacto, texto } from "../lib/contenido";
+import { ruta } from "../lib/url";
+
+interface Props {
+  lang: Idioma;
+}
+
+const { lang } = Astro.props;
+const hero = (await texto("hero", lang)).data;
+const { instagram } = await contacto();
+---
+
+<Base lang={lang} titulo={hero.titulo} descripcion={hero.subtitulo} imagen="img/og.jpg">
+  <Header lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <Onda desde="crema" hacia="morado" />
+    <Historia lang={lang} />
+    <Onda desde="morado" hacia="crema" forma={2} />
+    <Productos lang={lang} />
+    <Onda desde="crema" hacia="morado" />
+    <Encontranos lang={lang} />
+    <Onda desde="morado" hacia="crema" forma={2} />
+    <Contacto lang={lang} />
+    <Onda desde="crema" hacia="morado-oscuro" />
+  </main>
+  <footer class="footer">
+    <img src={ruta("img/logo-blanco.webp")} alt="¡Disfrute!" width="1000" height="405" loading="lazy" />
+    <p>© {new Date().getFullYear()} ¡Disfrute! Açaí · @{instagram}</p>
+  </footer>
+</Base>

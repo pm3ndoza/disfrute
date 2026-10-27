@@ -1,6 +1,6 @@
 # ¡Disfrute! Açaí — sitio web
 
-Landing informativa de ¡Disfrute! Açaí: inicio, historia, productos, dónde encontrarnos y contacto.
+Landing informativa de ¡Disfrute! Açaí en español (`/`), portugués (`/pt/`) e inglés (`/en/`): inicio, historia, menú, dónde encontrarnos y contacto.
 
 - **Stack:** [Astro](https://astro.build) (sitio estático, sin JavaScript en el navegador) + CSS.
 - **Hosting:** GitHub Pages, publicado por GitHub Actions al hacer push a `main`.
@@ -42,8 +42,14 @@ public/img/             # Fotos, logo e ilustraciones (deco/)
 
 Por defecto el sitio se publica con `noindex` (no aparece en Google), porque las fotos y textos son provisorios. Cuando esté listo: *Settings → Secrets and variables → Actions → Variables* → crear `INDEXAR` = `true` y volver a correr el workflow.
 
+## Marca
+
+Todo sigue el *Brand Book ¡Disfrute!* (ago. 2025): paleta `#392054` / `#F3F1E9` / `#75B843` / `#000000`, logo principal (morado) solo sobre crema y versión blanca solo sobre morado, ilustraciones botánicas como marco y la firma "Abra sus alas y ¡Disfrute!" con las alas.
+
 ## Pendientes antes de publicar
 
-- **Fotos:** las actuales son recortes de capturas (Instagram, reseñas de Google Maps y PedidosYa), en baja resolución. Reemplazarlas por fotos propias en alta, o pedir permiso a quien las publicó.
-- **Logo:** `public/img/logo.png` está recortado de una captura. Pedir el original en vector (SVG/AI/PDF).
-- **Textos:** confirmar con los dueños la historia (`src/content/historia.md`), nombres y descripciones de productos, y horarios.
+- **Tipografías:** la marca usa Praliner (títulos) y Petita (textos). Se usan Josefin Sans y Nunito (OFL) como reemplazo hasta tener los archivos con **licencia web**; no extraerlas del PDF.
+- **Traducciones:** revisar con los dueños el portugués e inglés (nombres de productos, lema "Abra suas asas…" / "Spread your wings…").
+- **Precios del menú:** vienen del brand book (ago. 2025). Confirmar que siguen vigentes.
+- **Fotos de producto:** las de açaí son recortes de Instagram en baja resolución; idealmente reemplazar por originales.
+- **Textos de salud:** del banner del brand book se tomaron solo los datos nutricionales; se omitieron afirmaciones como "desintoxica" o "ayuda a perder peso": son afirmaciones de salud que no conviene publicar sin respaldo.

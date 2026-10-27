@@ -1,0 +1,13 @@
+---
+import type { GetStaticPaths } from "astro";
+import Pagina from "../../components/Pagina.astro";
+import { idiomaPorDefecto, idiomas, type Idioma } from "../../i18n";
+
+// El español vive en la raíz; acá se generan /pt/ y /en/.
+export const getStaticPaths = (() =>
+  idiomas.filter((lang) => lang !== idiomaPorDefecto).map((lang) => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Idioma;
+---
+
+<Pagina lang={lang} />

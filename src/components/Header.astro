@@ -1,22 +1,43 @@
 ---
+import { idiomas, nombresIdioma, rutaIdioma, ui, type Idioma } from "../i18n";
 import { ruta } from "../lib/url";
 
-const links = [
-  { href: "#historia", texto: "Historia" },
-  { href: "#productos", texto: "Productos" },
-  { href: "#encontranos", texto: "Encontranos" },
-  { href: "#contacto", texto: "Contacto" },
-];
+interface Props {
+  lang: Idioma;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const links = (["esencia", "menu", "encontranos", "contacto"] as const).map((id) => ({
+  href: `#${id === "menu" ? "productos" : id}`,
+  texto: t.nav[id],
+}));
 ---
 
 <header class="header">
+  <!-- Brand book: sobre morado solo va la versión blanca del logo -->
   <a href="#inicio" class="marca">
-    <img src={ruta("img/logo.png")} alt="" width="40" height="40" />
-    <span>¡Disfrute! <em>Açaí</em></span>
+    <img src={ruta("img/logo-blanco.webp")} alt={t.inicioAlt} width="1000" height="405" />
   </a>
-  <nav aria-label="Secciones">
+  <nav class="header__nav" aria-label={t.navAria}>
     <ul>
       {links.map((l) => <li><a href={l.href}>{l.texto}</a></li>)}
     </ul>
+  </nav>
+  <nav class="idiomas" aria-label={t.idiomaAria}>
+    {
+      idiomas.map((i) => (
+        <a
+          href={rutaIdioma(i)}
+          hreflang={i}
+          lang={i}
+          title={nombresIdioma[i]}
+          aria-label={nombresIdioma[i]}
+          aria-current={i === lang ? "page" : undefined}
+        >
+          {i.toUpperCase()}
+        </a>
+      ))
+    }
   </nav>
 </header>

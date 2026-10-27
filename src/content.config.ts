@@ -11,31 +11,56 @@ const foto = (carpeta: string) =>
     message: `La foto no existe en ${join("public/img", carpeta)}/`,
   });
 
+const precio = z.number().positive("El precio va solo con números, sin $");
+
+// Texto corto en los tres idiomas (los textos largos van en src/content/textos/<idioma>/).
+const traducido = z.object({ es: z.string(), pt: z.string(), en: z.string() });
+const textos = (archivo: string) => glob({ pattern: `{es,pt,en}/${archivo}`, base: "./src/content/textos" });
+
 const hero = defineCollection({
-  loader: glob({ pattern: "hero.md", base: "./src/content" }),
+  loader: textos("hero.md"),
   schema: z.object({
     titulo: z.string(),
+    lema: z.string(),
     subtitulo: z.string(),
-    foto: foto(""),
   }),
 });
 
 const historia = defineCollection({
-  loader: glob({ pattern: "historia.md", base: "./src/content" }),
+  loader: textos("historia.md"),
   schema: z.object({
     titulo: z.string(),
     foto: foto("").optional(),
   }),
 });
 
+const acai = defineCollection({
+  loader: textos("acai.md"),
+  schema: z.object({
+    titulo: z.string(),
+    fotos: z.array(foto("productos")).max(2),
+  }),
+});
+
 const productos = defineCollection({
   loader: glob({ pattern: "*.md", base: "./src/content/productos" }),
   schema: z.object({
-    nombre: z.string(),
-    precio: z.number().positive().optional(),
-    foto: foto("productos"),
+    nombre: traducido,
+    categoria: z.enum(["vasos", "bowls"]),
+    detalle: z.string().optional(),
+    precio,
     orden: z.number().int().default(99),
     disponible: z.boolean().default(true),
+  }),
+});
+
+const toppings = defineCollection({
+  loader: glob({ pattern: "toppings.md", base: "./src/content" }),
+  schema: z.object({
+    salsas: z.array(traducido),
+    secos: z.array(traducido),
+    frutas: z.array(traducido),
+    precio_extra: precio,
   }),
 });
 
@@ -44,11 +69,12 @@ const contacto = defineCollection({
   schema: z.object({
     direccion: z.string(),
     ciudad: z.string(),
-    horarios: z.array(z.object({ dias: z.string(), horas: z.string() })),
+    // Sin `horas` = cerrado ese día.
+    horarios: z.array(z.object({ dias: traducido, horas: z.string().optional() })),
     whatsapp: z.string().regex(/^\d{8,15}$/, "Solo números, con código de país (ej: 59899123456)"),
-    mensaje_whatsapp: z.string(),
+    mensaje_whatsapp: traducido,
     instagram: z.string().regex(/^[\w.]+$/, "Solo el usuario, sin @ ni link"),
   }),
 });
 
-export const collections = { hero, historia, productos, contacto };
+export const collections = { hero, historia, acai, productos, toppings, contacto };
