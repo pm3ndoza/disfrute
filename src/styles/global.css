@@ -1,0 +1,556 @@
+/* Paleta tomada del logo, las historias y la pared del local. */
+:root {
+  --morado: #341f57;
+  --morado-oscuro: #291b3f;
+  --violeta: #5a3d9e;
+  --verde: #7eb54f;
+  --crema: #f2eadd;
+  --blanco: #ffffff;
+  --texto: #291b3f;
+  --radio: 1.25rem;
+  --sombra: 0 10px 30px rgb(50 29 73 / 0.12);
+  --sombra-fuerte: 0 18px 40px rgb(50 29 73 / 0.22);
+  --suave: cubic-bezier(0.22, 1, 0.36, 1);
+  --ancho: 72rem;
+  --fuente: "Montserrat Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fuente-titulos: var(--fuente);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  color: var(--texto);
+  background: var(--blanco);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-top: 0;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--verde);
+  outline-offset: 3px;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgb(41 27 63 / 0.85);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  color: var(--blanco);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--blanco);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.marca img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.marca em {
+  color: var(--verde);
+  font-style: normal;
+}
+
+.header ul {
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.header nav a {
+  color: var(--crema);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.header nav a {
+  position: relative;
+}
+
+.header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.2rem;
+  width: 100%;
+  height: 2px;
+  background: var(--verde);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--suave);
+}
+
+.header nav a:hover {
+  color: var(--verde);
+}
+
+.header nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.5rem, 6vw, 4rem) 1.25rem clamp(5rem, 10vw, 8rem);
+  color: var(--blanco);
+  background:
+    radial-gradient(circle at 85% 30%, rgb(90 61 158 / 0.7), transparent 55%),
+    radial-gradient(circle at 10% 90%, rgb(126 181 79 / 0.18), transparent 45%),
+    var(--morado-oscuro);
+}
+
+.hero__grilla {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.hero__contenido {
+  text-align: center;
+}
+
+.hero__logo {
+  width: clamp(6rem, 18vw, 8.75rem);
+  height: auto;
+  margin: 0 auto 1.5rem;
+  filter: drop-shadow(0 10px 25px rgb(0 0 0 / 0.35));
+}
+
+.hero h1 {
+  font-size: clamp(2.25rem, 7vw, 4.25rem);
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+
+.hero p {
+  font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+  max-width: 34rem;
+  margin: 0 auto 2rem;
+  color: var(--crema);
+  text-wrap: pretty;
+}
+
+.hero__foto {
+  width: min(100%, 26rem);
+  aspect-ratio: 3 / 4;
+  margin-inline: auto;
+  object-fit: cover;
+  border-radius: 999px 999px var(--radio) var(--radio);
+  border: 6px solid rgb(126 181 79 / 0.6);
+  box-shadow: 0 30px 60px rgb(0 0 0 / 0.4);
+}
+
+/* Botones */
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.boton {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 0.3s var(--suave),
+    box-shadow 0.3s var(--suave);
+}
+
+.boton:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-fuerte);
+}
+
+.boton--verde {
+  background: var(--verde);
+  color: var(--morado);
+}
+
+.boton--claro {
+  background: var(--crema);
+  color: var(--morado);
+}
+
+.boton--morado {
+  background: var(--morado);
+  color: var(--blanco);
+}
+
+/* Secciones */
+.seccion {
+  padding: clamp(3rem, 8vw, 5rem) 1.25rem;
+}
+
+.seccion--crema {
+  background: var(--crema);
+}
+
+.seccion--morado {
+  background: var(--morado);
+  color: var(--blanco);
+}
+
+/* Ilustraciones botánicas de la marca (fondo crema = el de la sección) */
+.seccion--deco {
+  position: relative;
+  overflow: hidden;
+}
+
+.seccion--deco > .contenedor {
+  position: relative;
+}
+
+.deco {
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+}
+
+.deco--hojas {
+  top: 0;
+  right: -2rem;
+  width: clamp(8rem, 22vw, 18rem);
+}
+
+.deco--flores {
+  bottom: 0;
+  left: -1.5rem;
+  width: clamp(7rem, 18vw, 14rem);
+  transform: scaleX(-1);
+}
+
+@media (max-width: 47.99rem) {
+  .deco {
+    opacity: 0.35;
+  }
+}
+
+.contenedor {
+  max-width: var(--ancho);
+  margin: 0 auto;
+}
+
+.historia,
+.encontranos {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.historia img {
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+/* Productos */
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.producto {
+  overflow: hidden;
+  border-radius: var(--radio);
+  background: var(--crema);
+  box-shadow: var(--sombra);
+  transition:
+    transform 0.4s var(--suave),
+    box-shadow 0.4s var(--suave);
+}
+
+.producto:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-fuerte);
+}
+
+.producto img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  width: 100%;
+  transition: transform 0.6s var(--suave);
+}
+
+.producto:hover img {
+  transform: scale(1.06);
+}
+
+.producto__texto {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.producto h3 {
+  margin: 0 0 0.25rem;
+  color: var(--morado);
+}
+
+.producto p {
+  margin: 0.25rem 0;
+}
+
+.precio {
+  font-weight: 700;
+  color: var(--morado);
+}
+
+/* Encontranos */
+address {
+  font-style: normal;
+  font-size: 1.1rem;
+}
+
+.horarios {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0 0 1.5rem;
+}
+
+.horarios dt {
+  font-weight: 600;
+}
+
+.horarios dd {
+  margin: 0;
+}
+
+.encontranos iframe {
+  width: 100%;
+  min-height: 20rem;
+  border: 0;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+/* Contacto */
+.contacto {
+  text-align: center;
+}
+
+.whatsapp-flotante {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: #25d366;
+  color: var(--blanco);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.25);
+  transition: transform 0.3s var(--suave);
+}
+
+.whatsapp-flotante:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-flotante svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.footer {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  background: var(--morado-oscuro);
+  color: var(--crema);
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+}
+
+/* Separadores en onda entre secciones */
+.onda {
+  --alto: clamp(2.5rem, 7vw, 6rem);
+  height: var(--alto);
+  margin-bottom: -1px;
+}
+
+.onda svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.onda--sobre {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--alto));
+}
+
+/* Acento verde bajo los títulos */
+h2::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 4px;
+  margin-top: 0.75rem;
+  border-radius: 2px;
+  background: var(--verde);
+}
+
+.contacto h2::after {
+  margin-inline: auto;
+}
+
+/*
+ * Animaciones: solo CSS (la CSP bloquea JS) y solo si el usuario no pidió
+ * reducir movimiento. Sin soporte, el contenido se ve igual, sin animar.
+ */
+@keyframes entrar {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+}
+
+@keyframes acercar {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    translate: 0 2.5rem;
+    scale: 0.97;
+  }
+}
+
+@keyframes sombra-header {
+  to {
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__foto {
+    animation: acercar 1.6s var(--suave) both;
+  }
+
+  .hero__logo,
+  .hero h1,
+  .hero p,
+  .hero .botones {
+    animation: entrar 1s var(--suave) both;
+  }
+
+  .hero h1 {
+    animation-delay: 0.1s;
+  }
+
+  .hero p {
+    animation-delay: 0.2s;
+  }
+
+  .hero .botones {
+    animation-delay: 0.3s;
+  }
+
+  @supports (animation-timeline: view()) {
+    .revelar {
+      animation: aparecer linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    .header {
+      animation: sombra-header linear both;
+      animation-timeline: scroll();
+      animation-range: 0 120px;
+    }
+  }
+}
+
+@media (min-width: 48rem) {
+  .historia,
+  .encontranos {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero__grilla {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .hero__contenido {
+    text-align: left;
+  }
+
+  .hero__logo,
+  .hero p {
+    margin-left: 0;
+  }
+
+  .hero .botones {
+    justify-content: flex-start;
+  }
+}

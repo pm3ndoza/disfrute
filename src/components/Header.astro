@@ -1,0 +1,22 @@
+---
+import { ruta } from "../lib/url";
+
+const links = [
+  { href: "#historia", texto: "Historia" },
+  { href: "#productos", texto: "Productos" },
+  { href: "#encontranos", texto: "Encontranos" },
+  { href: "#contacto", texto: "Contacto" },
+];
+---
+
+<header class="header">
+  <a href="#inicio" class="marca">
+    <img src={ruta("img/logo.png")} alt="" width="40" height="40" />
+    <span>¡Disfrute! <em>Açaí</em></span>
+  </a>
+  <nav aria-label="Secciones">
+    <ul>
+      {links.map((l) => <li><a href={l.href}>{l.texto}</a></li>)}
+    </ul>
+  </nav>
+</header>

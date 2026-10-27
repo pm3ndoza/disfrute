@@ -1,0 +1,29 @@
+---
+import { getEntry } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Historia from "../components/Historia.astro";
+import Productos from "../components/Productos.astro";
+import Encontranos from "../components/Encontranos.astro";
+import Contacto from "../components/Contacto.astro";
+import Onda from "../components/Onda.astro";
+
+const hero = await getEntry("hero", "hero");
+---
+
+<Base titulo={hero?.data.titulo ?? "¡Disfrute! Açaí"} descripcion={hero?.data.subtitulo ?? ""} imagen={`img/${hero?.data.foto}`}>
+  <Header />
+  <main>
+    <Hero />
+    <Onda hacia="crema" sobre />
+    <Historia />
+    <Onda desde="crema" hacia="blanco" forma={2} />
+    <Productos />
+    <Onda desde="blanco" hacia="crema" />
+    <Encontranos />
+    <Onda desde="crema" hacia="morado" forma={2} />
+    <Contacto />
+  </main>
+  <footer class="footer">© {new Date().getFullYear()} ¡Disfrute! Açaí</footer>
+</Base>

@@ -1,0 +1,33 @@
+---
+import { getEntry } from "astro:content";
+import { ruta } from "../lib/url";
+
+const contacto = await getEntry("contacto", "contacto");
+if (!contacto) throw new Error("Falta src/content/contacto.md");
+const { direccion, ciudad, horarios } = contacto.data;
+const consulta = encodeURIComponent(`${direccion}, ${ciudad}`);
+---
+
+<section id="encontranos" class="seccion seccion--crema seccion--deco">
+  <img class="deco deco--flores" src={ruta("img/deco/flores-crema.webp")} alt="" width="322" height="378" loading="lazy" />
+  <div class="contenedor encontranos">
+    <div class="revelar">
+      <h2>Encontranos</h2>
+      <address>{direccion}<br />{ciudad}</address>
+      <h3>Horarios</h3>
+      <dl class="horarios">
+        {horarios.map((h) => (<><dt>{h.dias}</dt><dd>{h.horas}</dd></>))}
+      </dl>
+      <a class="boton boton--morado" href={`https://www.google.com/maps/search/?api=1&query=${consulta}`} target="_blank" rel="noopener noreferrer">
+        Cómo llegar
+      </a>
+    </div>
+    <iframe
+      class="revelar"
+      title={`Mapa: ${direccion}`}
+      src={`https://www.google.com/maps?q=${consulta}&output=embed`}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+  </div>
+</section>

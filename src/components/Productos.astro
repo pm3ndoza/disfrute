@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from "astro:content";
+import { ruta } from "../lib/url";
+
+const productos = (await getCollection("productos", ({ data }) => data.disponible)).sort(
+  (a, b) => a.data.orden - b.data.orden,
+);
+const items = await Promise.all(productos.map(async (p) => ({ ...p, ...(await render(p)) })));
+---
+
+<section id="productos" class="seccion">
+  <div class="contenedor">
+    <h2 class="revelar">Nuestros productos</h2>
+    <ul class="productos">
+      {
+        items.map(({ data, Content }) => (
+          <li class="producto revelar">
+            <img src={ruta(`img/productos/${data.foto}`)} alt={data.nombre} loading="lazy" width="600" height="600" />
+            <div class="producto__texto">
+              <h3>{data.nombre}</h3>
+              <Content />
+              {data.precio && <p class="precio">$ {data.precio}</p>}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

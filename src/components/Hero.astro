@@ -1,0 +1,23 @@
+---
+import { getEntry } from "astro:content";
+import { ruta } from "../lib/url";
+
+const hero = await getEntry("hero", "hero");
+if (!hero) throw new Error("Falta src/content/hero.md");
+const { titulo, subtitulo, foto } = hero.data;
+---
+
+<section id="inicio" class="hero">
+  <div class="contenedor hero__grilla">
+    <div class="hero__contenido">
+      <img class="hero__logo" src={ruta("img/logo.png")} alt="¡Disfrute! Açaí" width="140" height="140" />
+      <h1>{titulo}</h1>
+      <p>{subtitulo}</p>
+      <div class="botones">
+        <a class="boton boton--verde" href="#productos">Conocé nuestros productos</a>
+        <a class="boton boton--claro" href="#encontranos">Visitá nuestro local</a>
+      </div>
+    </div>
+    <img class="hero__foto" src={ruta(`img/${foto}`)} alt="Mural de alas en el local de ¡Disfrute!" width="947" height="1269" fetchpriority="high" />
+  </div>
+</section>

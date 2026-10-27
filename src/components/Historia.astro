@@ -1,0 +1,20 @@
+---
+import { getEntry, render } from "astro:content";
+import { ruta } from "../lib/url";
+
+const historia = await getEntry("historia", "historia");
+if (!historia) throw new Error("Falta src/content/historia.md");
+const { Content } = await render(historia);
+const { titulo, foto } = historia.data;
+---
+
+<section id="historia" class="seccion seccion--crema seccion--deco">
+  <img class="deco deco--hojas" src={ruta("img/deco/hojas-crema.webp")} alt="" width="374" height="624" loading="lazy" />
+  <div class="contenedor historia">
+    {foto && <img class="revelar" src={ruta(`img/${foto}`)} alt="El rincón amazónico de ¡Disfrute!, con hamaca y tucán" loading="lazy" width="900" height="900" />}
+    <div class="texto revelar">
+      <h2>{titulo}</h2>
+      <Content />
+    </div>
+  </div>
+</section>
