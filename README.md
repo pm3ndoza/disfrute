@@ -21,13 +21,18 @@ npm run preview
 
 ```
 src/
-├── content/            # Contenido editable (hero, historia, contacto, productos/)
-├── content.config.ts   # Esquema y validaciones del contenido
-├── components/         # Una sección por componente
-├── layouts/Base.astro  # <head>, SEO, Open Graph y CSP
-├── pages/index.astro
-└── styles/global.css   # Paleta y estilos
-public/img/             # Fotos, logo e ilustraciones (deco/)
+├── content/
+│   ├── textos/{es,pt,en}/  # Textos largos por idioma (hero, historia, acai)
+│   ├── productos/          # Menú: un archivo por producto, nombre en 3 idiomas
+│   ├── toppings.md
+│   └── contacto.md
+├── content.config.ts       # Esquema y validaciones del contenido
+├── i18n.ts                 # Idiomas, rutas y textos fijos de la interfaz
+├── components/             # Una sección por componente + Pagina.astro
+├── layouts/Base.astro      # <head>, SEO, hreflang, Open Graph y CSP
+├── pages/                  # index.astro (es) y [lang]/index.astro (pt, en)
+└── styles/global.css       # Paleta y estilos
+public/img/                 # Fotos, logos e ilustraciones (deco/)
 ```
 
 ## Puesta en marcha

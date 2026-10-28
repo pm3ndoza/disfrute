@@ -218,6 +218,31 @@ a:focus-visible {
 
   .header__nav ul {
     justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .header__nav a {
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Secciones apiladas: todo centrado, como el menú y el contacto */
+  .historia .texto,
+  .acai__texto,
+  .encontranos > div:first-child {
+    text-align: center;
+  }
+
+  .historia h2::after,
+  .acai__texto h2::after,
+  .encontranos h2::after {
+    margin-inline: auto;
+  }
+
+  .encontranos .horarios {
+    width: fit-content;
+    margin-inline: auto;
+    text-align: left;
   }
 }
 
@@ -404,12 +429,19 @@ a:focus-visible {
   align-items: center;
 }
 
+/* Que ningún hijo de la grilla la ensanche más que la pantalla */
+.historia > *,
+.encontranos > * {
+  min-width: 0;
+}
+
 .historia__foto {
   border-radius: 999px 999px var(--radio) var(--radio);
   border: 6px solid rgb(117 184 67 / 0.7);
   box-shadow: 0 30px 60px rgb(0 0 0 / 0.35);
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  width: 100%;
   max-width: 26rem;
   margin-inline: auto;
 }
